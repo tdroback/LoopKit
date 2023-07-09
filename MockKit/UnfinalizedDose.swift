@@ -51,8 +51,12 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
     }
 
     public var progress: Double {
-        let elapsed = -startTime.timeIntervalSinceNow
-        return min(elapsed / duration, 1)
+        progress(at: Date())
+    }
+    
+    public func progress(at date: Date) -> Double {
+        let elapsed = -startTime.timeIntervalSince(date)
+        return min(max(elapsed, 0) / duration, 1)
     }
 
     public var finished: Bool {
@@ -65,6 +69,10 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
             return 0
         }
         return units / duration.hours
+    }
+    
+    public func isFinished(at date: Date) -> Bool {
+        return progress(at: date) >= 1
     }
 
     public var finalizedUnits: Double? {
@@ -162,13 +170,13 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
     public var eventTitle: String {
         switch doseType {
         case .bolus:
-            return NSLocalizedString("Bolus", comment: "Pump Event title for UnfinalizedDose with doseType of .bolus")
+            return LocalizedString("Bolus", comment: "Pump Event title for UnfinalizedDose with doseType of .bolus")
         case .resume:
-            return NSLocalizedString("Resume", comment: "Pump Event title for UnfinalizedDose with doseType of .resume")
+            return LocalizedString("Resume", comment: "Pump Event title for UnfinalizedDose with doseType of .resume")
         case .suspend:
-            return NSLocalizedString("Suspend", comment: "Pump Event title for UnfinalizedDose with doseType of .suspend")
+            return LocalizedString("Suspend", comment: "Pump Event title for UnfinalizedDose with doseType of .suspend")
         case .tempBasal:
-            return NSLocalizedString("Temp Basal", comment: "Pump Event title for UnfinalizedDose with doseType of .tempBasal")
+            return LocalizedString("Temp Basal", comment: "Pump Event title for UnfinalizedDose with doseType of .tempBasal")
         }
     }
 

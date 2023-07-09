@@ -12,7 +12,7 @@ import LoopKit
 import SwiftUI
 
 public struct TherapySettingsView: View {
-    @EnvironmentObject private var displayGlucoseUnitObservable: DisplayGlucoseUnitObservable
+    @EnvironmentObject private var displayGlucosePreference: DisplayGlucosePreference
     @Environment(\.chartColorPalette) var chartColorPalette
     @Environment(\.dismissAction) var dismissAction
     @Environment(\.appName) private var appName
@@ -237,8 +237,7 @@ extension TherapySettingsView {
     private var preMealCorrectionRangeSection: Card {
         card(for: .preMealCorrectionRangeOverride) {
             let correctionRangeOverrides = self.viewModel.correctionRangeOverrides
-            if let schedule = self.viewModel.glucoseTargetRangeSchedule
-            {
+            if let schedule = self.viewModel.glucoseTargetRangeSchedule {
                 SectionDivider()
                 CorrectionRangeOverridesRangeItem(
                     value: correctionRangeOverrides,
@@ -254,8 +253,7 @@ extension TherapySettingsView {
     private var workoutCorrectionRangeSection: Card {
         card(for: .workoutCorrectionRangeOverride) {
             let correctionRangeOverrides = self.viewModel.correctionRangeOverrides
-            if let schedule = self.viewModel.glucoseTargetRangeSchedule
-            {
+            if let schedule = self.viewModel.glucoseTargetRangeSchedule {
                 SectionDivider()
                 CorrectionRangeOverridesRangeItem(
                     value: correctionRangeOverrides,
@@ -411,7 +409,7 @@ extension TherapySettingsView {
     
     private var supportSection: some View {
         Section {
-            NavigationLink(destination: Text("Therapy Settings Support Placeholder")) {
+            NavigationLink(destination: DemoPlaceHolderView(appName: appName)) {
                 HStack {
                     Text("Get help with Therapy Settings", comment: "Support button for Therapy Settings")
                         .foregroundColor(.primary)
@@ -477,7 +475,7 @@ extension TherapySettingsView {
 extension TherapySettingsView {
     
     private var glucoseUnit: HKUnit {
-        displayGlucoseUnitObservable.displayGlucoseUnit
+        displayGlucosePreference.unit
     }
     
     private var sensitivityUnit: HKUnit {
@@ -650,12 +648,12 @@ public struct TherapySettingsView_Previews: PreviewProvider {
                 .colorScheme(.light)
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE 2"))
                 .previewDisplayName("SE light (onboarding)")
-                .environmentObject(DisplayGlucoseUnitObservable(displayGlucoseUnit: .milligramsPerDeciliter))
+                .environmentObject(DisplayGlucosePreference(displayGlucoseUnit: .milligramsPerDeciliter))
             TherapySettingsView(mode: .settings, viewModel: preview_viewModel())
                 .colorScheme(.light)
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE 2"))
                 .previewDisplayName("SE light (settings)")
-                .environmentObject(DisplayGlucoseUnitObservable(displayGlucoseUnit: .milligramsPerDeciliter))
+                .environmentObject(DisplayGlucosePreference(displayGlucoseUnit: .milligramsPerDeciliter))
             TherapySettingsView(mode: .settings, viewModel: preview_viewModel())
                 .colorScheme(.dark)
                 .previewDevice(PreviewDevice(rawValue: "iPhone XS Max"))
@@ -664,7 +662,7 @@ public struct TherapySettingsView_Previews: PreviewProvider {
                 .colorScheme(.light)
                 .previewDevice(PreviewDevice(rawValue: "iPhone SE 2"))
                 .previewDisplayName("SE light (Empty TherapySettings)")
-                .environmentObject(DisplayGlucoseUnitObservable(displayGlucoseUnit: .millimolesPerLiter))
+                .environmentObject(DisplayGlucosePreference(displayGlucoseUnit: .millimolesPerLiter))
         }
     }
 }

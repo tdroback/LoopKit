@@ -23,14 +23,15 @@ final class MockPumpManagerSettingsViewController: UITableViewController {
         self.pumpManager = pumpManager
         self.supportedInsulinTypes = supportedInsulinTypes
         super.init(style: .grouped)
-        title = NSLocalizedString("Pump Settings", comment: "Title for Pump simulator settings")
+        title = pumpManager.localizedTitle
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private let quantityFormatter = QuantityFormatter()
+    private let reservoirFormatter = QuantityFormatter(for: .internationalUnit())
+    private let rateFormatter = QuantityFormatter(for: .internationalUnit().unitDivided(by: .hour()))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +93,8 @@ final class MockPumpManagerSettingsViewController: UITableViewController {
         case bolusCancelErrorToggle
         case suspendErrorToggle
         case resumeErrorToggle
+        case crashOnBolus
+        case crashOnTempBasal
         case uncertainDeliveryErrorToggle
         case lastReconciliationDate
     }
@@ -144,7 +147,7 @@ final class MockPumpManagerSettingsViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.className, for: indexPath)
             cell.textLabel?.text = "Current Basal Rate"
             if let currentBasalRate = pumpManager.currentBasalRate {
-                cell.detailTextLabel?.text = quantityFormatter.string(from: currentBasalRate, for: HKUnit.internationalUnit().unitDivided(by: .hour()))
+                cell.detailTextLabel?.text = rateFormatter.string(from: currentBasalRate)
             } else {
                 cell.detailTextLabel?.text = "—"
             }
@@ -223,7 +226,7 @@ final class MockPumpManagerSettingsViewController: UITableViewController {
             case .reservoirRemaining:
                 let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.className, for: indexPath)
                 cell.textLabel?.text = "Reservoir Remaining"
-                cell.detailTextLabel?.text = quantityFormatter.string(from: HKQuantity(unit: .internationalUnit(), doubleValue: pumpManager.state.reservoirUnitsRemaining), for: .internationalUnit())
+                cell.detailTextLabel?.text = reservoirFormatter.string(from: HKQuantity(unit: .internationalUnit(), doubleValue: pumpManager.state.reservoirUnitsRemaining))
                 cell.accessoryType = .disclosureIndicator
                 return cell
             case .batteryRemaining:
@@ -246,6 +249,10 @@ final class MockPumpManagerSettingsViewController: UITableViewController {
                 return switchTableViewCell(for: indexPath, titled: "Error on Suspend", boundTo: \.deliverySuspensionShouldError)
             case .resumeErrorToggle:
                 return switchTableViewCell(for: indexPath, titled: "Error on Resume", boundTo: \.deliveryResumptionShouldError)
+            case .crashOnBolus:
+                return switchTableViewCell(for: indexPath, titled: "Crash on Bolus", boundTo: \.bolusShouldCrash)
+            case .crashOnTempBasal:
+                return switchTableViewCell(for: indexPath, titled: "Crash on Temp Basal", boundTo: \.tempBasalShouldCrash)
             case .uncertainDeliveryErrorToggle:
                 return switchTableViewCell(for: indexPath, titled: "Next Delivery Command Uncertain", boundTo: \.deliveryCommandsShouldTriggerUncertainDelivery)
             case .lastReconciliationDate:
@@ -381,12 +388,12 @@ final class MockPumpManagerSettingsViewController: UITableViewController {
                 vc.indexPath = indexPath
                 vc.percentageDelegate = self
                 show(vc, sender: sender)
-            case .tempBasalErrorToggle, .bolusErrorToggle, .bolusCancelErrorToggle, .suspendErrorToggle, .resumeErrorToggle, .uncertainDeliveryErrorToggle:
-                break
             case .lastReconciliationDate:
                 tableView.deselectRow(at: indexPath, animated: true)
                 tableView.beginUpdates()
                 tableView.endUpdates()
+            default:
+                break
             }
         case .statusProgress:
             let vc = PercentageTextFieldTableViewController()
@@ -559,7 +566,7 @@ private extension UIAlertController {
         let message: String
 
         if let localizedError = error as? LocalizedError {
-            let sentenceFormat = NSLocalizedString("%@.", comment: "Appends a full-stop to a statement")
+            let sentenceFormat = LocalizedString("%@.", comment: "Appends a full-stop to a statement")
             message = [localizedError.failureReason, localizedError.recoverySuggestion].compactMap({ $0 }).map({
                 String(format: sentenceFormat, $0)
             }).joined(separator: "\n")
@@ -574,7 +581,7 @@ private extension UIAlertController {
         )
 
         addAction(UIAlertAction(
-            title: NSLocalizedString("OK", comment: "Button title to acknowledge error"),
+            title: LocalizedString("OK", comment: "Button title to acknowledge error"),
             style: .default,
             handler: nil
         ))

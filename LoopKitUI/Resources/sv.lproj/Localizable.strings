@@ -19,9 +19,6 @@
 /* No comment provided by engineer. */
 "%@" = "%@";
 
-/* No comment provided by engineer. */
-"%@, " = "%@, ";
-
 /* Appends a full-stop to a statement */
 "%@." = "%@.";
 
@@ -29,7 +26,7 @@
 "%@%% of normal insulin" = "%@%% of normal insulin";
 
 /* Format string for reservoir volume. (1: The localized volume) */
-"%@U" = "%@U";
+"%@U" = "%@E";
 
 /* The format for a glucose target range. (1: min target)(2: max target)(3: glucose unit) */
 "%1$@ – %2$@ %3$@" = "%1$@ – %2$@ %3$@";
@@ -45,11 +42,14 @@
 "%1$@ U" = "%1$@ E";
 
 /* Accessibility format string for (1: localized volume)(2: time) */
-"%1$@ units remaining at %2$@" = "%1$@ enheter återstår kl %2$@";
+"%1$@ units remaining at %2$@" = "%1$@ enheter återstår kl. %2$@";
 
 /* Description of a basal temp basal dose entry (1: title for dose type, 2: value (? if no value) in bold, 3: unit)
    Description of a bolus dose entry (1: title for dose type, 2: value (? if no value) in bold, 3: unit) */
 "%1$@: <b>%2$@</b> %3$@" = "%1$@: <b>%2$@</b> %3$@";
+
+/* String format for value with units (1: value, 2: separator, 3: units) */
+"%1$@%2$@%3$@" = "%1$@%2$@%3$@";
 
 /* No comment provided by engineer. */
 "🍽" = "🍽";
@@ -74,9 +74,6 @@
 
 /* Warning text for basal rate of 0 U/hr */
 "A value of 0 U/hr means you will be scheduled to receive no basal insulin." = "Ett värde på 0 / h innebär att du inte kommer få någon basal insulintillförsel.";
-
-/* No comment provided by engineer. */
-"Above dynamic data" = "Över dynamisk data";
 
 /* No comment provided by engineer. */
 "Above the save button" = "Ovanför spara-knappen";
@@ -111,6 +108,9 @@
 /* Authentication hint string for therapy settings */
 "Authenticate to save therapy setting" = "Autentisera för att spara behandlingsinställningar";
 
+/* Back navigation button title */
+"Back" = "Tillbaka";
+
 /* Title text for multi-value basal rate warning */
 "Basal Rates" = "Basaldoser";
 
@@ -122,12 +122,6 @@
 
 /* Describes a lack of change in overall insulin needs */
 "Basal, bolus, and correction insulin dose amounts are unaffected." = "Basal, bolus, och korrigeringsdoser är oförändrade.";
-
-/* No comment provided by engineer. */
-"Below dynamic data" = "Under dynamisk data";
-
-/* No comment provided by engineer. */
-"Bottom" = "Längst ned";
 
 /* No comment provided by engineer. */
 "Bottom component" = "Nedre komponent";
@@ -234,12 +228,6 @@
 /* The text for the override duration setting */
 "Duration" = "Duration";
 
-/* No comment provided by engineer. */
-"Dynamic component #%@" = "Dynamisk komponent #%@";
-
-/* No comment provided by engineer. */
-"Dynamic data %@" = "Dynamisk data %@";
-
 /* Text for edit button
    The title for the enabled custom preset editing screen */
 "Edit" = "Ändra";
@@ -338,6 +326,9 @@
 /* Information about target range */
 "If you've used a CGM before, you're likely familiar with target range as a wide range of values you'd like for your glucose notification alerts, such as 70-180 mg/dL or 90-200 mg/dL." = "Om du använt en CGM tidigare är du förmodligen van vid ett brett målvärdesintervall för varningsnotiser, som 70-180 mg/dl eller 90-200 mg/dl.";
 
+/* Title text for insulin model */
+"Insulin Model" = "Insulinmodell";
+
 /* Title text for multi-value insulin sensitivity warning */
 "Insulin Sensitivities" = "Insulinkänslighet";
 
@@ -388,9 +379,6 @@
 
 /* Section title for medium absorbing food */
 "Medium" = "Medium";
-
-/* No comment provided by engineer. */
-"Middle" = "Mellan";
 
 /* Placeholder for minimum value in glucose range */
 "min" = "min";
@@ -612,9 +600,6 @@
 
 /* No comment provided by engineer. */
 "To be implemented" = "Att bli implementerat";
-
-/* No comment provided by engineer. */
-"Top" = "Överst";
 
 /* No comment provided by engineer. */
 "Top component" = "Översta komponenten";

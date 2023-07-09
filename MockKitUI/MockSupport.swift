@@ -32,15 +32,17 @@ public class MockSupport: SupportUI {
         rawValue["lastVersionCheckAlertDate"] = lastVersionCheckAlertDate
         return rawValue
     }
+
+    public func initializationComplete(for services: [LoopKit.Service]) { }
    
-    public func checkVersion(bundleIdentifier: String, currentVersion: String, completion: @escaping (Result<VersionUpdate?, Error>) -> Void) {
-        maybeIssueAlert(versionUpdate ?? .none)
-        completion(.success(versionUpdate))
+    public func checkVersion(bundleIdentifier: String, currentVersion: String) async -> VersionUpdate? {
+        maybeIssueAlert(versionUpdate ?? .noUpdateNeeded)
+        return versionUpdate
     }
     
     public weak var delegate: SupportUIDelegate?
 
-    public func configurationMenuItems() -> [AnyView] {
+    public func configurationMenuItems() -> [LoopKitUI.CustomMenuItem] {
         return []
     }
 
@@ -55,6 +57,14 @@ public class MockSupport: SupportUI {
             }
         )
     }
+    
+    public func getScenarios(from scenarioURLs: [URL]) -> [LoopScenario] {
+        scenarioURLs.map { LoopScenario(name: $0.lastPathComponent, url: $0) }
+    }
+    
+    public func loopWillReset() {}
+    
+    public func loopDidReset() {}
 }
 
 extension MockSupport {
@@ -77,21 +87,21 @@ extension MockSupport {
         let alertContent: LoopKit.Alert.Content
         if firstAlert {
             alertContent = Alert.Content(title: versionUpdate.localizedDescription,
-                                         body: String(format: NSLocalizedString("""
+                                         body: String(format: LocalizedString("""
                                                     Your %1$@ app is out of date. It will continue to work, but we recommend updating to the latest version.
                                                     
                                                     Go to %2$@ Settings > Software Update to complete.
                                                     """, comment: "Alert content body for first software update alert (1: app name)(2: app name)"), appName, appName),
-                                         acknowledgeActionButtonLabel: NSLocalizedString("OK", comment: "Default acknowledgement"))
+                                         acknowledgeActionButtonLabel: LocalizedString("OK", comment: "Default acknowledgement"))
         } else if let lastVersionCheckAlertDate = lastVersionCheckAlertDate,
                   abs(lastVersionCheckAlertDate.timeIntervalSinceNow) > alertCadence {
-            alertContent = Alert.Content(title: NSLocalizedString("Update Reminder", comment: "Recurring software update alert title"),
-                                         body: String(format: NSLocalizedString("""
+            alertContent = Alert.Content(title: LocalizedString("Update Reminder", comment: "Recurring software update alert title"),
+                                         body: String(format: LocalizedString("""
                                                     A software update is recommended to continue using the %1$@ app.
                                                     
                                                     Go to %2$@ Settings > Software Update to install the latest version.
                                                     """, comment: "Alert content body for recurring software update alert"), appName, appName),
-                                         acknowledgeActionButtonLabel: NSLocalizedString("OK", comment: "Default acknowledgement"))
+                                         acknowledgeActionButtonLabel: LocalizedString("OK", comment: "Default acknowledgement"))
         } else {
             return
         }

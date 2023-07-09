@@ -1,14 +1,11 @@
-/* Describes a certain bolus failure (1: size of the bolus in units) */
-"%1$@ U bolus failed" = "%1$@ U大剂量未成功输注";
-
-/* Describes an uncertain bolus failure (1: size of the bolus in units) */
-"%1$@ U bolus may not have succeeded" = "%1$@ U大剂量可能未成功输注";
+/* String format for value with units (1: value, 2: separator, 3: units) */
+"%1$@%2$@%3$@" = "%1$@%2$@%3$@";
 
 /* The error description describing when Health sharing was denied */
 "Authorization Denied" = "没有权限";
 
-/* Recovery instruction for an uncertain bolus failure */
-"Check your pump before retrying" = "请先检查胰岛素泵，然后再重试";
+/* Title text for basal rates */
+"Basal Rates" = "基础率";
 
 /* The description of an error returned when attempting to delete a sample not shared by the current app */
 "com.loudnate.CarbKit.deleteCarbEntryUnownedErrorDescription" = "没有权限";
@@ -21,6 +18,9 @@
 
 /* Generic pump error description */
 "Connection Failure" = "连接失败";
+
+/* Title text for delivery limits */
+"Delivery Limits" = "输注限制";
 
 /* Generic pump error description */
 "Device Refused" = "设备拒绝连接";
@@ -45,9 +45,6 @@
 
 /* Generic pump error description */
 "Invalid Configuration" = "无效配置";
-
-/* Recovery instruction for a certain bolus failure */
-"It is safe to retry" = "重试";
 
 /* The short unit display string for milligrams per deciliter per U */
 "mg/dL/U" = "毫克/分升/U";
@@ -75,6 +72,9 @@
 
 /* Glucose trend up-up-up */
 "Rising very fast" = "非常快速上升";
+
+/* Title for suspend dose type */
+"Suspended" = "暂停";
 
 /* The short unit display string for international units of insulin per hour */
 "U/hr" = "U/小时";

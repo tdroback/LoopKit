@@ -19,9 +19,6 @@
 /* No comment provided by engineer. */
 "%@" = "%@";
 
-/* No comment provided by engineer. */
-"%@, " = "%@, ";
-
 /* Appends a full-stop to a statement */
 "%@." = "%@.";
 
@@ -45,7 +42,7 @@
 "%1$@ U" = "%1$@ U";
 
 /* Accessibility format string for (1: localized volume)(2: time) */
-"%1$@ units remaining at %2$@" = "%1$@ units remaining at %2$@";
+"%1$@ units remaining at %2$@" = "%1$@ unità rimanenti alle ore %2$@";
 
 /* Description of a basal temp basal dose entry (1: title for dose type, 2: value (? if no value) in bold, 3: unit)
    Description of a bolus dose entry (1: title for dose type, 2: value (? if no value) in bold, 3: unit) */
@@ -77,9 +74,6 @@
 
 /* Warning text for basal rate of 0 U/hr */
 "A value of 0 U/hr means you will be scheduled to receive no basal insulin." = "Un valore di 0 U/ora significa che il paziente non riceverà insulina basale.";
-
-/* No comment provided by engineer. */
-"Above dynamic data" = "Sopra i dati dinamici";
 
 /* No comment provided by engineer. */
 "Above the save button" = "Sopra il pulsante Salva";
@@ -131,12 +125,6 @@
 
 /* Describes a lack of change in overall insulin needs */
 "Basal, bolus, and correction insulin dose amounts are unaffected." = "Le dosi basali, di bolo e di correzione dell’insulina sono rimaste invariate.";
-
-/* No comment provided by engineer. */
-"Below dynamic data" = "Sotto i dati dinamici";
-
-/* No comment provided by engineer. */
-"Bottom" = "Inferiore";
 
 /* No comment provided by engineer. */
 "Bottom component" = "Componente inferiore";
@@ -242,12 +230,6 @@
 
 /* The text for the override duration setting */
 "Duration" = "Durata";
-
-/* No comment provided by engineer. */
-"Dynamic component #%@" = "Componente dinamico # %@";
-
-/* No comment provided by engineer. */
-"Dynamic data %@" = "Dati dinamici %@";
 
 /* Text for edit button
    The title for the enabled custom preset editing screen */
@@ -403,9 +385,6 @@
 
 /* Section title for medium absorbing food */
 "Medium" = "Medio";
-
-/* No comment provided by engineer. */
-"Middle" = "Mezzo";
 
 /* Placeholder for minimum value in glucose range */
 "min" = "min";
@@ -636,9 +615,6 @@
 
 /* No comment provided by engineer. */
 "To be implemented" = "Da implementare";
-
-/* No comment provided by engineer. */
-"Top" = "Superiore/Principale";
 
 /* No comment provided by engineer. */
 "Top component" = "Componente Principale";
